@@ -26,7 +26,9 @@
  * 
  */
 
-class gapi {
+namespace Gapi;
+
+class Gapi {
   const account_data_url = 'https://www.googleapis.com/analytics/v3/management/accountSummaries';
   const report_data_url = 'https://www.googleapis.com/analytics/v3/data/ga';
   const interface_name = 'GAPI-2.0';
@@ -90,7 +92,7 @@ class gapi {
       'start-index' => $start_index,
       'max-results' => $max_results,
       );
-    $url = new gapiRequest(gapi::account_data_url);
+    $url = new gapiRequest(Gapi::account_data_url);
     $response = $url->get($get_variables, $this->auth_method->generateAuthHeader());
 
     if (substr($response['code'], 0, 1) == '2') {
@@ -194,9 +196,9 @@ class gapi {
     $parameters['start-index'] = $start_index;
     $parameters['max-results'] = $max_results;
 
-    $parameters['prettyprint'] = gapi::dev_mode ? 'true' : 'false';
+    $parameters['prettyprint'] = Gapi::dev_mode ? 'true' : 'false';
 
-    $url = new gapiRequest(gapi::report_data_url);
+    $url = new gapiRequest(Gapi::report_data_url);
     $response = $url->get($parameters, $this->auth_method->generateAuthHeader());
 
     //HTTP 2xx
@@ -369,13 +371,13 @@ class gapi {
 
     $name = preg_replace('/^get/', '', $name);
 
-    $parameter_key = gapi::ArrayKeyExists($name, $this->report_root_parameters);
+    $parameter_key = Gapi::ArrayKeyExists($name, $this->report_root_parameters);
 
     if ($parameter_key) {
       return $this->report_root_parameters[$parameter_key];
     }
 
-    $aggregate_metric_key = gapi::ArrayKeyExists($name, $this->report_aggregate_metrics);
+    $aggregate_metric_key = Gapi::ArrayKeyExists($name, $this->report_aggregate_metrics);
 
     if ($aggregate_metric_key) {
       return $this->report_aggregate_metrics[$aggregate_metric_key];
@@ -460,7 +462,7 @@ class gapiAccountEntry {
 
     $name = preg_replace('/^get/', '', $name);
 
-    $property_key = gapi::ArrayKeyExists($name, $this->properties);
+    $property_key = Gapi::ArrayKeyExists($name, $this->properties);
 
     if ($property_key) {
       return $this->properties[$property_key];
@@ -539,13 +541,13 @@ class gapiReportEntry {
 
     $name = preg_replace('/^get/', '', $name);
 
-    $metric_key = gapi::ArrayKeyExists($name, $this->metrics);
+    $metric_key = Gapi::ArrayKeyExists($name, $this->metrics);
 
     if ($metric_key) {
       return $this->metrics[$metric_key];
     }
 
-    $dimension_key = gapi::ArrayKeyExists($name, $this->dimensions);
+    $dimension_key = Gapi::ArrayKeyExists($name, $this->dimensions);
 
     if ($dimension_key) {
       return $this->dimensions[$dimension_key];
@@ -657,7 +659,7 @@ class gapiOAuth2 {
  */
 class gapiRequest {
   const http_interface = 'auto'; //'auto': autodetect, 'curl' or 'fopen'
-  const interface_name = gapi::interface_name;
+  const interface_name = Gapi::interface_name;
 
   private $url = null;
 
