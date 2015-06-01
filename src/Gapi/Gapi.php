@@ -28,6 +28,8 @@
 
 namespace Gapi;
 
+use Exception;
+
 class Gapi {
   const account_data_url = 'https://www.googleapis.com/analytics/v3/management/accountSummaries';
   const report_data_url = 'https://www.googleapis.com/analytics/v3/data/ga';
