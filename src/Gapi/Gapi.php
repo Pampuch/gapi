@@ -304,7 +304,7 @@ class Gapi {
 
     //Load result entries
 
-    foreach($json['rows'] as $row) {
+    if (isset($json['rows'])) foreach($json['rows'] as $row) {
       $metrics = array();
       $dimensions = array();
       foreach($json['columnHeaders'] as $index => $header) {
